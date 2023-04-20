@@ -35,11 +35,6 @@ if __name__ == "__main__":
             f"badge/maintained-yes-{primary}.svg",
             {"style": "flat-square"}
         ),
-        # (
-        #     "documentation",
-        #     "badge/view-Documentation-blue",
-        #     {"style": "for-the-badge"}
-        # ),
         (
             "built_with_love",
             "badge/Built_With-❤-D15D27",
