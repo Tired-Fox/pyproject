@@ -96,30 +96,28 @@ if __name__ == "__main__":
 
 <div align="center">
   
-![version](assets/badges/version.svg)
-[![License](assets/badges/license.svg)](https://github.com/Tired-Fox/{project}/blob/main/LICENSE)
-[![Release](https://img.shields.io/github/v/release/tired-fox/{project}.svg?style=flat-square&color=9cf)](https://github.com/Tired-Fox/{project}/releases)
-![Maintained](assets/badges/maintained.svg)
-
-![testing](assets/badges/tests.svg)
-![test coverage](assets/badges/coverage.svg)
+<img src="assets/badges/version.svg" alt="Version"/>
+<a href="https://github.com/Tired-Fox/{project}/blob/main/LICENSE" alt="License"><img src="assets/badges/license.svg"/></a>
+<a href="https://github.com/Tired-Fox/{project}/releases" alt="Release"><img src="https://img.shields.io/github/v/release/tired-fox/{project}.svg?style=flat-square&color=9cf"/></a>
+<img src="assets/badges/maintained.svg" alt="Maintained"/>
+<br>
+<img src="assets/badges/tests.svg" alt="Tests"/>
+<img src="assets/badges/coverage.svg" alt="Coverage"/>
   
 </div>
 
-<!-- End Badges -->\
+<!-- End Header -->\
 """
     footer_badges = """\
 <!-- Footer Badges --!>
 
 <br>
 <div align="center">
-
-![Made with Python](assets/badges/made_with_python.svg)
-![Built with love](assets/badges/built_with_love.svg)
-
+  <img src="assets/badges/made_with_python.svg" alt="Made with python"/>
+  <img src="assets/badges/built_with_love.svg" alt="Built with love"/>
 </div>
 
-<!-- End Badges -->\
+<!-- End Footer -->\
 """
     print("Copying badge: made_with_python")
     Path("assets/badges/made_with_python.svg").write_text(PRESETS["made_with_python"])
