@@ -100,6 +100,7 @@ if __name__ == "__main__":
 [![License](assets/badges/license.svg)](https://github.com/Tired-Fox/{project}/blob/main/LICENSE)
 [![Release](https://img.shields.io/github/v/release/tired-fox/{project}.svg?style=flat-square&color=9cf)](https://github.com/Tired-Fox/{project}/releases)
 ![Maintained](assets/badges/maintained.svg)
+
 ![testing](assets/badges/tests.svg)
 ![test coverage](assets/badges/coverage.svg)
   
