@@ -140,19 +140,10 @@ build_deploy:
 # {repo} 
 
 <!-- Header Badges -->
-<!-- End Badges -->
+<!-- End Header -->
 
 <!-- Footer Badges -->
-
-<br>
-<div align="center">
-  
-![Made with Python](assets/badges/made_with_python.svg)
-![Built with love](assets/badges/built_with_love.svg)
-
-</div>
-
-<!-- End Badges -->
+<!-- End Footer -->
 """)
     Path("tests").mkdir(exist_ok=True)
 
