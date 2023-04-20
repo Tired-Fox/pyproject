@@ -119,7 +119,7 @@ build_docs:
 	pdoc $(PROJECT) -d google -o docs/
 
 badges:
-	python scripts/make_badges.py {repo}
+	python scripts/make_badges.py {repo} {name}
 
 build:
 	make badges
