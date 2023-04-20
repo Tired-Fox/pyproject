@@ -97,8 +97,8 @@ if __name__ == "__main__":
 <div align="center">
   
 <img src="assets/badges/version.svg" alt="Version"/>
-<a href="https://github.com/Tired-Fox/{project}/blob/main/LICENSE" alt="License"><img src="assets/badges/license.svg"/></a>
 <a href="https://github.com/Tired-Fox/{project}/releases" alt="Release"><img src="https://img.shields.io/github/v/release/tired-fox/{project}.svg?style=flat-square&color=9cf"/></a>
+<a href="https://github.com/Tired-Fox/{project}/blob/main/LICENSE" alt="License"><img src="assets/badges/license.svg"/></a>
 <img src="assets/badges/maintained.svg" alt="Maintained"/>
 <br>
 <img src="assets/badges/tests.svg" alt="Tests"/>
