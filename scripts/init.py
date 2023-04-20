@@ -5,9 +5,9 @@ if __name__ == "__main__":
 
     args = sys.argv[1:]
     if len(args) < 2:
-        raise ValueError("Expected two arguments: '<repo>' '<description>'")
+        raise ValueError("Expected two arguments: '<name>' '<description>'")
 
-    repo, description = args
+    repo, name, description = args
 
     Path("pyproject.toml").write_text(f"""\
 [build-system]
@@ -15,7 +15,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "{repo}"
+name = "{name}"
 version = "0.1.0"
 description = "{description}"
 readme = "README.md"
@@ -43,8 +43,8 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/Tired-Fox/{repo}"
-"Website" = "https://tired-fox.github.io/{repo}/"
+"Homepage" = "https://github.com/Tired-Fox/{name}"
+"Website" = "https://tired-fox.github.io/{name}/"
 
 [project.scripts]
 
@@ -77,7 +77,7 @@ extend-select = [
 """)
 
     Path("Makefile").write_text(f"""\
-PROJECT = {repo}
+PROJECT = {name}
 
 init:
 	pip3 install -e .[tests,dev]
@@ -119,7 +119,7 @@ build_docs:
 	pdoc $(PROJECT) -d google -o docs/
 
 badges:
-	python scripts/make_badges.py
+	python scripts/make_badges.py {repo}
 
 build:
 	make badges
@@ -133,9 +133,28 @@ build_deploy:
 """
 )
     # pInit.parent.mkdir(exist_ok=True, parents=True)
-    root = Path(f"{repo}/__init__.py")
-    root.parent.mkdir(exist_ok=True)
+    root = Path(f"{name}/__init__.py")
+    root.parent.mkdir(exist_ok=True, parents=True)
     root.write_text('__version__ = "0.1.0"\n')
+    Path("README.md").write_text(f"""\
+# {repo} 
+
+<!-- Header Badges -->
+<!-- End Badges -->
+
+<!-- Footer Badges -->
+
+<br>
+<div align="center">
+  
+![Made with Python](assets/badges/made_with_python.svg)
+![Built with love](assets/badges/built_with_love.svg)
+
+</div>
+
+<!-- End Badges -->
+""")
     Path("tests").mkdir(exist_ok=True)
 
     os.system("make init")
+    os.system("make badges")
