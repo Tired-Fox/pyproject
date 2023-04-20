@@ -1,6 +1,5 @@
 from pathlib import Path
 from subprocess import Popen, PIPE
-import phml as module
 
 from badges import *
 
@@ -11,18 +10,19 @@ if __name__ == "__main__":
 
     args = sys.argv[1:]
     try:
-        project = sys.argv[0]
+        project = args[0]
+        name = args[1]
     except:
-        raise ValueError("Expected one argument: '<repo>'")
+        raise ValueError("Expected at least two arguments: '<repo>' '<name>'")
 
     primary = "9cf"
-    if len(sys.argv) >= 2:
-        primary = sys.argv[1]
-
+    if len(args) >= 3:
+        primary = args[1]
+    
     project_badges: list[tuple[str, str, Parameters]] = [
         (
             "version",
-            Create.badge("verson", str(module.__version__), "9cf"),
+            Create.badge("verson", str(__import__(name).__version__), "9cf"),
             {"style": "flat-square", "logo": "aiohttp", "logoColor": "white"},
         ),
         (
