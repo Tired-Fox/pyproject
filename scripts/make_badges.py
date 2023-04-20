@@ -6,10 +6,18 @@ from badges import *
 
 if __name__ == "__main__":
     from tempfile import TemporaryFile
-    from re import search, finditer
+    from re import search, finditer, match, IGNORECASE
+    import sys
 
-    project = "phml"
+    args = sys.argv[1:]
+    try:
+        project = sys.argv[0]
+    except:
+        raise ValueError("Expected one argument: '<repo>'")
+
     primary = "9cf"
+    if len(sys.argv) >= 2:
+        primary = sys.argv[1]
 
     project_badges: list[tuple[str, str, Parameters]] = [
         (
@@ -27,11 +35,11 @@ if __name__ == "__main__":
             f"badge/maintained-yes-{primary}.svg",
             {"style": "flat-square"}
         ),
-        (
-            "documentation",
-            "badge/view-Documentation-blue",
-            {"style": "for-the-badge"}
-        ),
+        # (
+        #     "documentation",
+        #     "badge/view-Documentation-blue",
+        #     {"style": "for-the-badge"}
+        # ),
         (
             "built_with_love",
             "badge/Built_With-❤-D15D27",
@@ -88,31 +96,77 @@ if __name__ == "__main__":
         badges.badge(*badge)
 
     badges.collect("assets/badges/")
-    header_badges = f"""
+    header_badges = f"""\
 <!-- Header Badges -->
+
 <div align="center">
   
 ![version](assets/badges/version.svg)
 [![License](assets/badges/license.svg)](https://github.com/Tired-Fox/{project}/blob/main/LICENSE)
-[![Release](https://img.shields.io/github/v/release/tired-fox/{project}.svg?style=flat-square&color=9cf)](https://github.com/Tired-Fox/phml/releases)
+[![Release](https://img.shields.io/github/v/release/tired-fox/{project}.svg?style=flat-square&color=9cf)](https://github.com/Tired-Fox/{project}/releases)
 ![Maintained](assets/badges/maintained.svg)
 ![testing](assets/badges/tests.svg)
 ![test coverage](assets/badges/coverage.svg)
   
 </div>
-<!-- End Badges -->
+
+<!-- End Badges -->\
 """
     footer_badges = """\
 <!-- Footer Badges --!>
+
 <br>
 <div align="center">
+
 ![Made with Python](assets/badges/made_with_python.svg)
 ![Built with love](assets/badges/built_with_love.svg)
+
 </div>
+
 <!-- End Badges -->\
 """
     print("Copying badge: made_with_python")
     Path("assets/badges/made_with_python.svg").write_text(PRESETS["made_with_python"])
 
-    print(header_badges)
-    print(footer_badges)
+    readme = [path for path in Path("").glob("*.md") if path.as_posix().lower() == "readme.md"]
+    readme = readme[0] if len(readme) > 0 else None
+
+    if readme is not None:
+        lines = readme.read_text().split("\n")
+        idx = 0
+        while idx < len(lines):
+            if match(r"\s*<!--\s*Header\s*Badges\s*-->\s*", lines[idx], IGNORECASE) is not None:
+                entry = idx
+                end = idx
+                while idx < len(lines):
+                    if match(r"\s*<!--\s*End\s*Header\s*-->\s*", lines[idx], IGNORECASE) is not None: 
+                        end = idx
+                        break
+                    idx += 1
+                else:
+                    end = entry
+                lines[entry:end+1] = header_badges.split("\n")
+                break
+            idx += 1
+
+        idx = 0
+        while idx < len(lines):
+            if match(r"\s*<!--\s*Footer\s*Badges\s*-->\s*", lines[idx], IGNORECASE) is not None:
+                entry = idx
+                end = idx
+                while idx < len(lines):
+                    if match(r"\s*<!--\s*End\s*Footer\s*-->\s*", lines[idx], IGNORECASE) is not None: 
+                        end = idx
+                        break
+                    idx += 1
+                else:
+                    end = entry
+                lines[entry:end+1] = footer_badges.split("\n")
+                break
+            idx += 1
+
+        readme.write_text("\n".join(lines))
+        print("\x1b[1mUpdated README.md\x1b[22m")
+    else:
+        print(f"\x1b[1mHeader Badges:\x1b[22m\n{header_badges}")
+        print(f"\x1b[1mFooter Badges:\x1b[22m\n{footer_badges}")
