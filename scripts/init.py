@@ -1,5 +1,6 @@
 if __name__ == "__main__":
     import sys
+    import os
     from pathlib import Path
 
     args = sys.argv[1:]
@@ -79,7 +80,7 @@ extend-select = [
 PROJECT = {repo}
 
 init:
-	pip3 install -e .[]
+	pip3 install -e .[tests,dev]
 install:
 	pip3 install -e .
 
@@ -132,4 +133,8 @@ build_deploy:
 """
 )
     # pInit.parent.mkdir(exist_ok=True, parents=True)
-    Path(f"{repo}/__init__.py").write_text("")
+    root = Path(f"{repo}/__init__.py")
+    root.parent.mkdir(exist_ok=True, parents=True)
+    root.write_text('__version__ = "0.1.0"\n')
+
+    os.system("make init")
