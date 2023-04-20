@@ -134,7 +134,8 @@ build_deploy:
 )
     # pInit.parent.mkdir(exist_ok=True, parents=True)
     root = Path(f"{repo}/__init__.py")
-    root.parent.mkdir(exist_ok=True, parents=True)
+    root.parent.mkdir(exist_ok=True)
     root.write_text('__version__ = "0.1.0"\n')
+    Path("tests").mkdir(exist_ok=True)
 
     os.system("make init")
